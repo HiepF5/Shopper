@@ -1,10 +1,10 @@
 import React from 'react'
+import CartItems from '../Components/CartItems/CartItems'
 
 function Cart() {
   return (
     <div>
-      <img src='./arrow.png' alt='' />
-      Cart
+      <CartItems />
     </div>
   )
 }

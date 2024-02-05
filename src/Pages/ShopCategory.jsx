@@ -2,12 +2,8 @@ import React, { useEffect } from 'react'
 import { useAllProduct } from '../Store/AllProductStore'
 import dropdown_icon from '@assets/img/dropdown_icon.png'
 import Item from '../Components/Item/Item'
-import './ShopCategory.css'
+import './css/ShopCategory.css'
 function ShopCategory({ banner, category }) {
-  const fetch = useAllProduct((state) => state.fetch)
-  useEffect(() => {
-    fetch('http://localhost:5000/all_products')
-  }, [])
   const all_products = useAllProduct((state) => state.all_products)
   console.log(all_products)
   return (
