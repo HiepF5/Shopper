@@ -4,28 +4,28 @@ import { create } from 'zustand'
 const allProductStore = (set, get) => ({
   all_products: [],
   cart: {},
+  totalItem: 0,
   fetch: async (url) => {
     const response = await axios.get(url)
     set({ all_products: response.data })
   },
   getDefaultCart: () => {
-    let dfcart = {}
+    let cart = {}
     const all_products = get().all_products
     for (let i = 0; i < all_products.length; i++) {
-      dfcart[i] = 0
+      cart[i] = 0
     }
-    return dfcart
+    return cart
   },
   addToCart: (itemId) => {
     const currentCart = get().cart
-    console.log(currentCart)
     set({
       cart: {
         ...currentCart,
         [itemId]: (currentCart[itemId] || 0) + 1
-      }
+      },
+      totalItem: get().totalItem + 1 // Increment totalItem
     })
-    // console.log(get().cart)
   },
   removeFromCart: (itemId) => {
     const currentCart = get().cart
@@ -33,7 +33,8 @@ const allProductStore = (set, get) => ({
       cart: {
         ...currentCart,
         [itemId]: (currentCart[itemId] || 0) - 1
-      }
+      },
+      totalItem: get().totalItem - 1 // Decrement totalItem
     })
   },
   getTotalCartAmount: () => {
@@ -48,16 +49,16 @@ const allProductStore = (set, get) => ({
     }
     return totalAmount
   },
-  getTotalCartItems: () => {
-    let totalItem = 0
-    const currentCart = get().cart
-    for (const item in currentCart) {
-      if (currentCart[item] > 0) {
-        totalItem += currentCart[item]
-      }
-    }
-    return totalItem
-  }
+  // getTotalCartItems: () => {
+  //   let totalItem = 0
+  //   const currentCart = get().cart
+  //   for (const item in currentCart) {
+  //     if (currentCart[item] > 0) {
+  //       totalItem += currentCart[item]
+  //     }
+  //   }
+  //   return totalItem
+  // }
 })
 
 export const useAllProduct = create(allProductStore)

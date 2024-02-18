@@ -6,7 +6,7 @@ import { Link, NavLink } from 'react-router-dom'
 import { useAllProduct } from '../../Store/AllProductStore'
 function Navbar() {
   const [menu, setMenu] = useState('shop')
-  const getTotalCartItems = useAllProduct((state) => state.getTotalCartItems)
+  const totalItem = useAllProduct((state) => state.totalItem)
   return (
     <>
       <div className='navbar'>
@@ -63,7 +63,7 @@ function Navbar() {
           <Link style={{ textDecoration: 'none' }} to='/cart'>
             <img src={cart_icon} alt='' />
           </Link>
-          <div className='nav-cart-count'>{getTotalCartItems()}</div>
+          <div className='nav-cart-count'>{totalItem}</div>
         </div>
       </div>
     </>
